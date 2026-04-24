@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>AFAFA · 02 北京大学东莞光电研究院</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#0A0E17;--stroke:rgba(255,255,255,0.06);--stroke-strong:rgba(255,255,255,0.1);
+  --text-0:#F2F4FA;--text-1:#C9CEDC;--text-2:#7B8196;--text-3:#4E5468;
+  --mint:#5EEAD4;--lavender:#A78BFA;--sky:#60A5FA;--warn:#FBBF24;--alert:#F87171;--ok:#34D399;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;background:#050812;overflow:hidden;}
+body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature-settings:"tnum" 1;}
+
+.nav-strip{position:fixed;top:0;left:0;right:0;height:40px;background:rgba(5,8,18,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:4px;padding:0 16px;z-index:999;}
+.nav-strip a{font-size:11px;color:#7B8196;letter-spacing:0.12em;text-decoration:none;padding:5px 12px;border-radius:6px;transition:all .15s;white-space:nowrap;}
+.nav-strip a:hover{background:rgba(255,255,255,0.06);color:#C9CEDC;}
+.nav-strip a.active{background:rgba(94,234,212,0.12);color:#5EEAD4;border:1px solid rgba(94,234,212,0.3);}
+.nav-strip .sep{width:1px;height:16px;background:rgba(255,255,255,0.08);margin:0 4px;}
+.viewport{position:fixed;inset:0;top:40px;overflow:hidden;}
+
+.screen{
+  width:1920px;height:1080px;display:flex;flex-direction:column;
+  background:radial-gradient(900px 600px at 15% -10%,rgba(96,165,250,0.10),transparent 60%),radial-gradient(1100px 700px at 95% 110%,rgba(167,139,250,0.10),transparent 60%),radial-gradient(700px 500px at 50% 50%,rgba(94,234,212,0.04),transparent 70%),linear-gradient(180deg,#0A0E17 0%,#0B101C 100%);
+  color:var(--text-0);overflow:hidden;position:relative;letter-spacing:0.01em;transform-origin:top left;
+}
+.screen::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.screen::after{content:"";position:absolute;inset:0;background:radial-gradient(1800px 900px at 50% 60%,transparent 0%,rgba(0,0,0,0.35) 100%);pointer-events:none;}
+
+.header{position:relative;z-index:2;height:80px;padding:0 32px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid var(--stroke);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-mark{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#5EEAD4 0%,#60A5FA 50%,#A78BFA 100%);display:grid;place-items:center;box-shadow:0 0 24px rgba(94,234,212,0.25);position:relative;}
+.logo-mark::after{content:"";position:absolute;inset:2px;border-radius:8px;background:#0A0E17;}
+.logo-mark svg{position:relative;z-index:1;}
+.logo-text{font-size:20px;font-weight:700;letter-spacing:0.14em;}
+.logo-sub{font-size:11px;color:var(--text-2);letter-spacing:0.2em;margin-top:2px;}
+.header-title{font-size:22px;font-weight:600;letter-spacing:0.18em;text-align:center;display:flex;align-items:center;gap:14px;}
+.bar{width:24px;height:2px;background:linear-gradient(90deg,transparent,var(--mint));}
+.bar.r{background:linear-gradient(90deg,var(--mint),transparent);}
+.header-right{display:flex;align-items:center;justify-content:flex-end;gap:14px;color:var(--text-1);font-size:14px;}
+.time-t{font-size:20px;font-weight:600;color:var(--text-0);font-variant-numeric:tabular-nums;}
+.time-d{font-size:12px;color:var(--text-2);letter-spacing:0.14em;margin-top:2px;}
+
+.card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,0.04) 0%,rgba(255,255,255,0.015) 100%);border:1px solid var(--stroke);border-radius:16px;backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.04),0 12px 32px rgba(0,0,0,0.35);}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;border-bottom:1px solid var(--stroke);}
+.card-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;letter-spacing:0.06em;}
+.card-title .dot{width:5px;height:5px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);}
+.card-title .en{font-size:9px;color:var(--text-3);letter-spacing:0.2em;font-weight:500;margin-left:4px;text-transform:uppercase;}
+
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid var(--stroke-strong);font-size:10px;color:var(--text-1);letter-spacing:0.06em;}
+.chip.mint{color:#A6F3E4;background:rgba(94,234,212,0.14);border-color:rgba(94,234,212,0.3);}
+.chip.lav{color:#D6C5FE;background:rgba(167,139,250,0.14);border-color:rgba(167,139,250,0.3);}
+.chip.sky{color:#B3D0FB;background:rgba(96,165,250,0.14);border-color:rgba(96,165,250,0.3);}
+.chip.warn{color:#FCD34D;background:rgba(251,191,36,0.12);border-color:rgba(251,191,36,0.3);}
+.chip.alert{color:#FCA5A5;background:rgba(248,113,113,0.12);border-color:rgba(248,113,113,0.3);}
+
+.mono{font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+
+.progress{position:relative;height:7px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;}
+.progress-fill{position:absolute;inset:0;border-radius:999px;background:linear-gradient(90deg,var(--mint),var(--sky));box-shadow:0 0 12px rgba(94,234,212,0.4);}
+
+/* ENV TILE */
+.env-tile{padding:10px 12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid var(--stroke);display:flex;align-items:center;gap:10px;position:relative;overflow:hidden;}
+.env-tile .glow{position:absolute;right:-15px;top:-15px;width:60px;height:60px;border-radius:50%;opacity:0.15;pointer-events:none;}
+
+/* VIDEO PH */
+.video-ph{position:relative;background:repeating-linear-gradient(45deg,rgba(255,255,255,0.02) 0 8px,transparent 8px 16px),linear-gradient(135deg,#0F1524,#131B2C);border:1px solid var(--stroke-strong);border-radius:10px;overflow:hidden;}
+.video-ph .frame-x{position:absolute;inset:16px;border:1px dashed rgba(255,255,255,0.08);border-radius:6px;}
+.video-ph .live-label{position:absolute;inset:0;display:grid;place-items:center;color:#4E5468;font-size:11px;letter-spacing:0.2em;font-family:'JetBrains Mono',monospace;}
+.video-ph .rec{position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:5px;font-size:9px;color:#FCA5A5;letter-spacing:0.2em;}
+.video-ph .rec .rd{width:5px;height:5px;background:#F87171;border-radius:50%;box-shadow:0 0 5px #F87171;}
+.video-ph .cam-label{position:absolute;top:8px;right:8px;font-size:10px;color:var(--text-1);letter-spacing:0.1em;}
+.video-ph .ts{position:absolute;bottom:8px;right:8px;font-size:9px;color:var(--text-1);font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.4);padding:2px 6px;border-radius:3px;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;}
+.tbl th{font-size:10px;font-weight:500;color:var(--text-2);letter-spacing:0.16em;text-transform:uppercase;text-align:left;padding:9px 12px;background:rgba(255,255,255,0.02);border-bottom:1px solid var(--stroke);}
+.tbl td{padding:10px 12px;border-bottom:1px dashed rgba(255,255,255,0.04);color:var(--text-1);}
+.tbl tr:last-child td{border-bottom:none;}
+
+/* BAR CELL */
+.bar-wrap{display:flex;align-items:center;gap:8px;}
+.bar-track{flex:1;height:5px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;position:relative;}
+.bar-fill{position:absolute;inset:0;border-radius:999px;}
+
+/* ICON BADGE */
+.icon-badge{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--stroke-strong);}
+
+/* KPI CARD */
+.kpi-card{position:relative;overflow:hidden;padding:12px 14px;border-radius:12px;}
+
+/* RING */
+.ring-wrap{position:relative;overflow:visible;display:inline-flex;align-items:center;justify-content:center;}
+.ring-wrap svg{overflow:visible;display:block;transform-box:fill-box;transform-origin:center;}
+.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<nav class="nav-strip">
+  <a href="page1-overview.html">01 · 总览</a>
+  <span class="sep"></span>
+  <a href="page2-beijing.html" class="active">02 · 北京</a>
+  <span class="sep"></span>
+  <a href="page3-qingdao.html">03 · 青岛</a>
+  <span class="sep"></span>
+  <a href="page4-heilongjiang.html">04 · 黑龙江</a>
+  <span class="sep"></span>
+  <a href="page5-shaanxi.html">05 · 陕西</a>
+</nav>
+
+<div class="viewport" id="viewport">
+<div class="screen" id="screen">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <img src="AFAFA_logo.svg" alt="AFAFA" style="height:44px;width:auto;display:block;">
+  </div>
+  <div class="header-title">
+    <span class="bar"></span> 北京大学东莞光电研究院光生物应用研发中心 <span class="bar r"></span>
+  </div>
+  <div class="header-right">
+    <div style="display:flex;gap:8px;">
+      <span class="chip mint"><span style="width:5px;height:5px;border-radius:50%;background:#5EEAD4;box-shadow:0 0 8px #5EEAD4;"></span> 系统在线</span>
+      <span class="chip"><span style="width:5px;height:5px;border-radius:50%;background:#A78BFA;"></span> 数据同步中</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;">
+      <div class="time-t" id="clock">2026-04-23 14:28:46</div>
+      <div class="time-d" id="weekday">星期四</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--stroke-strong);background:rgba(255,255,255,0.03);font-size:12px;color:var(--text-1);">
+      <span style="color:#7B8196;">基地</span><span style="color:#F2F4FA;">切换 ▾</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<div style="padding:14px 18px 12px;display:grid;grid-template-columns:1fr 1.1fr 1.25fr;grid-template-rows:1fr auto;gap:12px;flex:1;min-height:0;overflow:hidden;box-sizing:border-box;position:relative;z-index:1;">
+
+  <!-- LEFT: Production spans 2 rows -->
+  <div class="card" style="grid-row:1/span 2;display:flex;flex-direction:column;min-height:0;">
+    <div class="card-head">
+      <div class="card-title"><span class="dot"></span> 生产与订单管理 <span class="en">PRODUCTION &amp; ORDERS</span></div>
+      <span class="chip mint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" fill="rgba(94,234,212,0.15)"/><path d="M5 19L14 10"/></svg> 模块 01</span>
+    </div>
+    <div style="padding:12px;display:flex;flex-direction:column;gap:10px;flex:1;min-height:0;">
+
+      <!-- ZONE 1: 垂直种植区 -->
+      <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(94,234,212,0.07),rgba(255,255,255,0.01));border:1px solid rgba(94,234,212,0.25);flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:4px;height:14px;border-radius:2px;background:#5EEAD4;box-shadow:0 0 8px #5EEAD4;"></div>
+            <div style="font-size:13px;font-weight:600;">垂直种植区</div>
+          </div>
+          <div class="mono" style="font-size:9px;color:#5EEAD4;letter-spacing:0.2em;opacity:0.7;">ZONE · 01</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+            <div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">种植库位占比</div>
+            <div class="num" style="font-size:11px;color:#5EEAD4;font-weight:600;">占有率 70.5%</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px;">
+            <span class="num" style="font-size:22px;font-weight:700;">220</span>
+            <span style="font-size:11px;color:#4E5468;">/ 312 个</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:70.5%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:center;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.06);">
+          <div><div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;">预计产量</div><div class="num" style="font-size:16px;font-weight:600;margin-top:2px;">160<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div></div>
+          <div><div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;">实际产量</div><div class="num" style="font-size:16px;font-weight:600;margin-top:2px;color:#5EEAD4;">156<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div></div>
+          <div><div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;">产出批次</div><div class="num" style="font-size:16px;font-weight:600;margin-top:2px;">12<span style="font-size:9px;color:#7B8196;margin-left:2px;">批</span></div></div>
+          <!-- Ring -->
+          <div class="ring-wrap" style="width:64px;height:64px;">
+            <svg width="64" height="64" style="transform:rotate(-90deg);">
+              <circle cx="32" cy="32" r="26" stroke="rgba(255,255,255,0.06)" stroke-width="6" fill="none"/>
+              <circle cx="32" cy="32" r="26" stroke="url(#rg1)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="3" style="filter:drop-shadow(0 0 6px #5EEAD4aa)"/>
+              <defs><linearGradient id="rg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5EEAD4"/><stop offset="100%" stop-color="#60A5FA"/></linearGradient></defs>
+            </svg>
+            <div class="ring-center"><div class="num" style="font-weight:700;color:#F2F4FA;font-size:12px;line-height:1;">98.2<span style="font-size:8px;color:#7B8196;">%</span></div><div style="font-size:7px;color:#7B8196;letter-spacing:0.12em;margin-top:2px;">合格率</div></div>
+          </div>
+        </div>
+        <!-- TOP5 -->
+        <div style="flex:1;min-height:0;">
+          <div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;margin-bottom:6px;">品种产出量 TOP5</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#5EEAD4;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(94,234,212,0.1);border:1px solid rgba(94,234,212,0.3);">01</div><div style="font-size:11px;">奶油生菜</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">38.6<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#5EEAD4;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(94,234,212,0.1);border:1px solid rgba(94,234,212,0.3);">02</div><div style="font-size:11px;">翠叶绿</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:89%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">34.2<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#5EEAD4;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(94,234,212,0.1);border:1px solid rgba(94,234,212,0.3);">03</div><div style="font-size:11px;">羽衣甘蓝</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:75%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">28.8<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#4E5468;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">04</div><div style="font-size:11px;">小菠菜</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:63%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">24.5<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#4E5468;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">05</div><div style="font-size:11px;">薄荷</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:52%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">20.1<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ZONE 2: 集装箱种植区 -->
+      <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(167,139,250,0.07),rgba(255,255,255,0.01));border:1px solid rgba(167,139,250,0.25);flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:4px;height:14px;border-radius:2px;background:#A78BFA;box-shadow:0 0 8px #A78BFA;"></div>
+            <div style="font-size:13px;font-weight:600;">集装箱种植区</div>
+          </div>
+          <div class="mono" style="font-size:9px;color:#A78BFA;letter-spacing:0.2em;opacity:0.7;">ZONE · 02</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+            <div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">种植库位占比</div>
+            <div class="num" style="font-size:11px;color:#A78BFA;font-weight:600;">占有率 80.0%</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px;">
+            <span class="num" style="font-size:22px;font-weight:700;">96</span>
+            <span style="font-size:11px;color:#4E5468;">/ 120 个</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:80%;background:linear-gradient(90deg,#A78BFA,#60A5FA);"></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:center;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.06);">
+          <div><div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;">预计产量</div><div class="num" style="font-size:16px;font-weight:600;margin-top:2px;">82<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div></div>
+          <div><div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;">实际产量</div><div class="num" style="font-size:16px;font-weight:600;margin-top:2px;color:#A78BFA;">78<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div></div>
+          <div><div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;">产出批次</div><div class="num" style="font-size:16px;font-weight:600;margin-top:2px;">6<span style="font-size:9px;color:#7B8196;margin-left:2px;">批</span></div></div>
+          <div class="ring-wrap" style="width:64px;height:64px;">
+            <svg width="64" height="64" style="transform:rotate(-90deg);">
+              <circle cx="32" cy="32" r="26" stroke="rgba(255,255,255,0.06)" stroke-width="6" fill="none"/>
+              <circle cx="32" cy="32" r="26" stroke="#A78BFA" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="4.3" style="filter:drop-shadow(0 0 6px #A78BFAaa)"/>
+            </svg>
+            <div class="ring-center"><div class="num" style="font-weight:700;color:#F2F4FA;font-size:12px;line-height:1;">97.4<span style="font-size:8px;color:#7B8196;">%</span></div><div style="font-size:7px;color:#7B8196;letter-spacing:0.12em;margin-top:2px;">合格率</div></div>
+          </div>
+        </div>
+        <div style="flex:1;min-height:0;">
+          <div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;margin-bottom:6px;">品种产出量 TOP5</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#A78BFA;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);">01</div><div style="font-size:11px;">奶油生菜</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#A78BFA,#60A5FA);box-shadow:0 0 8px rgba(167,139,250,0.35);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">28.4<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#A78BFA;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);">02</div><div style="font-size:11px;">羽衣甘蓝</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:88%;background:linear-gradient(90deg,#A78BFA,#60A5FA);box-shadow:0 0 8px rgba(167,139,250,0.35);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">25.1<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#A78BFA;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);">03</div><div style="font-size:11px;">翠叶绿</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:76%;background:linear-gradient(90deg,#A78BFA,#60A5FA);box-shadow:0 0 8px rgba(167,139,250,0.35);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">21.6<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#4E5468;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">04</div><div style="font-size:11px;">小菠菜</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:66%;background:linear-gradient(90deg,#A78BFA,#60A5FA);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">18.8<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+            <div style="display:grid;grid-template-columns:18px 90px 1fr 52px;gap:8px;align-items:center;"><div class="mono" style="font-size:9px;color:#4E5468;font-weight:600;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">05</div><div style="font-size:11px;">薄荷</div><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:55%;background:linear-gradient(90deg,#A78BFA,#60A5FA);"></div></div></div><div class="num" style="font-size:11px;font-weight:600;text-align:right;">15.6<span style="color:#7B8196;font-size:9px;margin-left:2px;">kg</span></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CENTER TOP: Camera -->
+  <div class="card" style="display:flex;flex-direction:column;min-height:0;">
+    <div class="card-head">
+      <div class="card-title"><span class="dot" style="background:#F87171;box-shadow:0 0 8px #F87171;"></span> 线上监控画面 <span class="en">LIVE CAMERA</span></div>
+      <span class="chip alert"><span style="width:5px;height:5px;border-radius:50%;background:#F87171;box-shadow:0 0 4px #F87171;"></span> LIVE · 4CHN</span>
+    </div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;flex:1;min-height:0;">
+      <div class="video-ph" style="height:100%;">
+        <div class="frame-x"></div><div class="live-label">[ LIVE ]</div>
+        <div class="rec"><span class="rd"></span> REC</div>
+        <div class="cam-label">垂直区 #01</div><div class="ts">CAM-01</div>
+      </div>
+      <div class="video-ph" style="height:100%;">
+        <div class="frame-x"></div><div class="live-label">[ LIVE ]</div>
+        <div class="rec"><span class="rd"></span> REC</div>
+        <div class="cam-label">集装箱 #03</div><div class="ts">CAM-02</div>
+      </div>
+      <div class="video-ph" style="height:100%;">
+        <div class="frame-x"></div><div class="live-label">[ LIVE ]</div>
+        <div class="rec"><span class="rd"></span> REC</div>
+        <div class="cam-label">育苗区 #01</div><div class="ts">CAM-03</div>
+      </div>
+      <div class="video-ph" style="height:100%;">
+        <div class="frame-x"></div><div class="live-label">[ LIVE ]</div>
+        <div class="rec"><span class="rd"></span> REC</div>
+        <div class="cam-label">出货通道</div><div class="ts">CAM-04</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Env monitoring + Economic (spans 2 rows, full height) -->
+  <div class="card" style="grid-row:1/span 2;display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+    <!-- Env monitoring section -->
+    <div class="card-head">
+      <div class="card-title"><span class="dot" style="background:#60A5FA;box-shadow:0 0 8px #60A5FA;"></span> 环境数据监控 <span class="en">ENV MONITORING · 3 ZONES</span></div>
+      <span class="chip sky" style="font-size:9px;"><svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/></svg> 实时</span>
+    </div>
+    <div style="padding:12px;display:flex;flex-direction:column;gap:8px;">
+      <!-- Zone row: 垂直种植区 -->
+      <div style="padding:10px;border-radius:10px;background:linear-gradient(90deg,rgba(94,234,212,0.07),transparent 60%);border:1px solid rgba(94,234,212,0.2);display:grid;grid-template-columns:108px 1fr 1fr 1fr 1fr;gap:8px;align-items:center;">
+        <div><div style="display:flex;align-items:center;gap:6px;"><div style="width:3px;height:12px;border-radius:2px;background:#5EEAD4;box-shadow:0 0 6px #5EEAD4;"></div><div style="font-size:11px;font-weight:600;">垂直种植区</div></div><div class="mono" style="font-size:9px;color:#5EEAD4;letter-spacing:0.14em;opacity:0.7;margin-top:3px;">ZONE · 01</div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M10 4a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><circle cx="12" cy="16" r="1.5" fill="#5EEAD4"/></svg><div><div style="font-size:8px;color:#7B8196;">温度</div><div class="num" style="font-size:14px;font-weight:700;">24.6<span style="font-size:8px;color:#7B8196;">℃</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg><div><div style="font-size:8px;color:#7B8196;">湿度</div><div class="num" style="font-size:14px;font-weight:700;">68<span style="font-size:8px;color:#7B8196;">%</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="12" r="3"/><path d="M18 9.5h-3a2 2 0 0 0 0 4h1a2 2 0 0 1 0 4h-3"/></svg><div><div style="font-size:8px;color:#7B8196;">CO₂</div><div class="num" style="font-size:14px;font-weight:700;">820<span style="font-size:8px;color:#7B8196;">ppm</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.5" fill="#5EEAD4" opacity="0.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg><div><div style="font-size:8px;color:#7B8196;">光照</div><div class="num" style="font-size:14px;font-weight:700;">420<span style="font-size:8px;color:#7B8196;">μmol</span></div></div></div>
+      </div>
+      <!-- Zone row: 集装箱种植区 -->
+      <div style="padding:10px;border-radius:10px;background:linear-gradient(90deg,rgba(167,139,250,0.07),transparent 60%);border:1px solid rgba(167,139,250,0.2);display:grid;grid-template-columns:108px 1fr 1fr 1fr 1fr;gap:8px;align-items:center;">
+        <div><div style="display:flex;align-items:center;gap:6px;"><div style="width:3px;height:12px;border-radius:2px;background:#A78BFA;box-shadow:0 0 6px #A78BFA;"></div><div style="font-size:11px;font-weight:600;">集装箱种植区</div></div><div class="mono" style="font-size:9px;color:#A78BFA;letter-spacing:0.14em;opacity:0.7;margin-top:3px;">ZONE · 02</div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round"><path d="M10 4a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><circle cx="12" cy="16" r="1.5" fill="#A78BFA"/></svg><div><div style="font-size:8px;color:#7B8196;">温度</div><div class="num" style="font-size:14px;font-weight:700;">23.8<span style="font-size:8px;color:#7B8196;">℃</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg><div><div style="font-size:8px;color:#7B8196;">湿度</div><div class="num" style="font-size:14px;font-weight:700;">72<span style="font-size:8px;color:#7B8196;">%</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="12" r="3"/><path d="M18 9.5h-3a2 2 0 0 0 0 4h1a2 2 0 0 1 0 4h-3"/></svg><div><div style="font-size:8px;color:#7B8196;">CO₂</div><div class="num" style="font-size:14px;font-weight:700;">780<span style="font-size:8px;color:#7B8196;">ppm</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.5" fill="#A78BFA" opacity="0.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg><div><div style="font-size:8px;color:#7B8196;">光照</div><div class="num" style="font-size:14px;font-weight:700;">380<span style="font-size:8px;color:#7B8196;">μmol</span></div></div></div>
+      </div>
+      <!-- Zone row: 育苗区 -->
+      <div style="padding:10px;border-radius:10px;background:linear-gradient(90deg,rgba(96,165,250,0.07),transparent 60%);border:1px solid rgba(96,165,250,0.2);display:grid;grid-template-columns:108px 1fr 1fr 1fr 1fr;gap:8px;align-items:center;">
+        <div><div style="display:flex;align-items:center;gap:6px;"><div style="width:3px;height:12px;border-radius:2px;background:#60A5FA;box-shadow:0 0 6px #60A5FA;"></div><div style="font-size:11px;font-weight:600;">育苗区</div></div><div class="mono" style="font-size:9px;color:#60A5FA;letter-spacing:0.14em;opacity:0.7;margin-top:3px;">ZONE · 03</div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><path d="M10 4a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><circle cx="12" cy="16" r="1.5" fill="#60A5FA"/></svg><div><div style="font-size:8px;color:#7B8196;">温度</div><div class="num" style="font-size:14px;font-weight:700;">26.2<span style="font-size:8px;color:#7B8196;">℃</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg><div><div style="font-size:8px;color:#7B8196;">湿度</div><div class="num" style="font-size:14px;font-weight:700;">75<span style="font-size:8px;color:#7B8196;">%</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="12" r="3"/><path d="M18 9.5h-3a2 2 0 0 0 0 4h1a2 2 0 0 1 0 4h-3"/></svg><div><div style="font-size:8px;color:#7B8196;">CO₂</div><div class="num" style="font-size:14px;font-weight:700;">650<span style="font-size:8px;color:#7B8196;">ppm</span></div></div></div>
+        <div class="env-tile"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.5" fill="#60A5FA" opacity="0.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg><div><div style="font-size:8px;color:#7B8196;">光照</div><div class="num" style="font-size:14px;font-weight:700;">260<span style="font-size:8px;color:#7B8196;">μmol</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="border-top:1px solid rgba(255,255,255,0.06);margin:0 12px;"></div>
+
+    <!-- Economic section -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 6px;">
+      <div class="card-title"><span class="dot" style="background:#A78BFA;box-shadow:0 0 8px #A78BFA;"></span> 经济性指标 <span class="en">ECONOMIC INDEX</span></div>
+      <span class="chip lav" style="font-size:9px;">今日</span>
+    </div>
+    <div style="padding:0 12px 10px;display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;overflow:hidden;">
+
+      <!-- 4 big KPI tiles -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(94,234,212,0.08),rgba(96,165,250,0.04));border:1px solid rgba(94,234,212,0.2);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">单位能耗</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#5EEAD4;line-height:1;">0.82</div>
+          <div style="font-size:9px;color:#7B8196;margin-top:2px;">kWh / kg</div>
+        </div>
+        <div style="padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(52,211,153,0.08),rgba(96,165,250,0.04));border:1px solid rgba(52,211,153,0.2);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">绿能替代率</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#34D399;line-height:1;">73.5<span style="font-size:11px;">%</span></div>
+          <div style="font-size:9px;color:#7B8196;margin-top:2px;">↑ 3.1% 较上周</div>
+        </div>
+        <div style="padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(167,139,250,0.08),rgba(96,165,250,0.04));border:1px solid rgba(167,139,250,0.2);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">人工成本降低</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#A78BFA;line-height:1;">42<span style="font-size:11px;">%</span></div>
+          <div style="font-size:9px;color:#7B8196;margin-top:2px;">↑ 8.6% 较上周</div>
+        </div>
+        <div style="padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(96,165,250,0.08),rgba(167,139,250,0.04));border:1px solid rgba(96,165,250,0.2);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">资源循环率</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#60A5FA;line-height:1;">92<span style="font-size:11px;">%</span></div>
+          <div style="font-size:9px;color:#7B8196;margin-top:2px;">↑ 2.3% 较上周</div>
+        </div>
+      </div>
+
+      <!-- 能耗细分 -->
+      <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;margin-bottom:8px;">能耗细分</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:grid;grid-template-columns:72px 1fr 56px;align-items:center;gap:8px;"><span style="font-size:11px;color:#C9CEDC;">补光电能</span><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div></div><span class="num" style="font-size:11px;font-weight:600;color:#5EEAD4;text-align:right;">842 kWh</span></div>
+          <div style="display:grid;grid-template-columns:72px 1fr 56px;align-items:center;gap:8px;"><span style="font-size:11px;color:#C9CEDC;">环控电能</span><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:38%;background:linear-gradient(90deg,#A78BFA,#60A5FA);"></div></div></div><span class="num" style="font-size:11px;font-weight:600;color:#A78BFA;text-align:right;">312 kWh</span></div>
+          <div style="display:grid;grid-template-columns:72px 1fr 56px;align-items:center;gap:8px;"><span style="font-size:11px;color:#C9CEDC;">总耗电量</span><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:85%;background:linear-gradient(90deg,#60A5FA,#A78BFA);"></div></div></div><span class="num" style="font-size:11px;font-weight:600;color:#60A5FA;text-align:right;">1,245 kWh</span></div>
+          <div style="display:grid;grid-template-columns:72px 1fr 56px;align-items:center;gap:8px;"><span style="font-size:11px;color:#C9CEDC;">太阳能(年)</span><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:73%;background:linear-gradient(90deg,#34D399,#5EEAD4);"></div></div></div><span class="num" style="font-size:11px;font-weight:600;color:#34D399;text-align:right;">14万 kWh</span></div>
+        </div>
+      </div>
+
+      <!-- 气体代谢 + 固碳量 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;flex:1;min-height:0;">
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(94,234,212,0.06);border:1px solid rgba(94,234,212,0.2);display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.1em;">CO₂ 消耗</div>
+          <div class="num" style="font-size:20px;font-weight:700;color:#5EEAD4;margin-top:4px;line-height:1;">24.6<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div>
+          <div style="font-size:9px;color:#4E5468;margin-top:3px;">今日补充量</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.1em;">O₂ 产出</div>
+          <div class="num" style="font-size:20px;font-weight:700;color:#A78BFA;margin-top:4px;line-height:1;">17.9<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div>
+          <div style="font-size:9px;color:#4E5468;margin-top:3px;">今日估算</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.1em;">固碳量</div>
+          <div class="num" style="font-size:20px;font-weight:700;color:#34D399;margin-top:4px;line-height:1;">286<span style="font-size:9px;color:#7B8196;margin-left:2px;">kg</span></div>
+          <div style="font-size:9px;color:#4E5468;margin-top:3px;">↑ 12.4%</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CENTER BOTTOM: Equipment table -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title"><span class="dot"></span> 种植设备运行效率 <span class="en">EQUIPMENT EFFICIENCY</span></div>
+      <div style="display:flex;gap:6px;"><span class="chip mint" style="font-size:9px;">垂直区</span><span class="chip" style="font-size:9px;">集装箱 ⟳</span></div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>设备名称</th><th>运行频次</th><th style="width:28%;">运行效率</th><th>故障时间</th><th>故障时长</th></tr></thead>
+      <tbody>
+        <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="14" height="8" rx="1.5"/><path d="M17 10h3l1 3v3h-4"/><circle cx="7" cy="18" r="1.6" fill="#5EEAD4"/><circle cx="17" cy="18" r="1.6" fill="#5EEAD4"/></svg></div><span style="font-size:12px;">AGV 搬运车</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">320 次/天</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:96.2%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#5EEAD4;">96.2%</span></div></td><td class="mono" style="color:#7B8196;font-size:10px;">—</td><td><span class="chip mint" style="font-size:9px;">0h</span></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M5 14c3-2 6 2 9 0s5 1 5 1"/><circle cx="9" cy="9" r="1" fill="#5EEAD4"/></svg></div><span style="font-size:12px;">加液机</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">48 筐/小时</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:92.5%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#5EEAD4;">92.5%</span></div></td><td class="mono" style="color:#7B8196;font-size:10px;">—</td><td><span class="chip mint" style="font-size:9px;">0h</span></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M7 12l3 3 7-7"/></svg></div><span style="font-size:12px;">配肥机</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">36 筐/小时</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:88.4%;background:linear-gradient(90deg,#FBBF24,#F97316);box-shadow:0 0 8px rgba(251,191,36,0.35);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#FBBF24;">88.4%</span></div></td><td class="mono" style="color:#FBBF24;font-size:10px;">14:02</td><td><span class="chip warn" style="font-size:9px;">0.5h</span></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M12 4c4 2 6 6 4 10-1 3-4 5-8 5"/><path d="M12 4c-4 2-6 6-4 10"/><circle cx="12" cy="13" r="1.2" fill="#5EEAD4"/></svg></div><span style="font-size:12px;">播种机</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">180 次/天</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:94.8%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#5EEAD4;">94.8%</span></div></td><td class="mono" style="color:#7B8196;font-size:10px;">—</td><td><span class="chip mint" style="font-size:9px;">0h</span></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(94,234,212,0.2)"/></svg></div><span style="font-size:12px;">动力组 A</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">24 h</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:99.1%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);box-shadow:0 0 8px rgba(94,234,212,0.35);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#5EEAD4;">99.1%</span></div></td><td class="mono" style="color:#7B8196;font-size:10px;">—</td><td><span class="chip mint" style="font-size:9px;">0h</span></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F87171" stroke-width="1.6" stroke-linecap="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(248,113,113,0.2)"/></svg></div><span style="font-size:12px;">动力组 B</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">24 h</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:76.3%;background:linear-gradient(90deg,#F87171,#EF4444);box-shadow:0 0 8px rgba(248,113,113,0.4);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#F87171;">76.3%</span></div></td><td class="mono" style="color:#F87171;font-size:10px;">09:14</td><td><span class="chip alert" style="font-size:9px;">2.1h</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM KPI STRIP -->
+  <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+    <div class="card kpi-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="display:flex;gap:8px;align-items:center;"><div class="icon-badge" style="width:28px;height:28px;border-color:#5EEAD455;background:rgba(94,234,212,0.12);"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(94,234,212,0.2)"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;">单位产量能耗</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;">↑ 5.2%</span></div><div style="margin-top:6px;"><div class="num" style="font-size:22px;font-weight:700;color:#5EEAD4;letter-spacing:-0.02em;line-height:1;">0.82</div><div style="font-size:10px;color:#7B8196;">kWh/kg</div></div><div style="font-size:9px;color:#4E5468;margin-top:2px;">较上周</div></div>
+    <div class="card kpi-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="display:flex;gap:8px;align-items:center;"><div class="icon-badge" style="width:28px;height:28px;border-color:#34D39955;background:rgba(52,211,153,0.12);"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" fill="rgba(52,211,153,0.15)"/><path d="M5 19L14 10"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;">固碳量</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;">↑ 12.4%</span></div><div style="margin-top:6px;"><div class="num" style="font-size:22px;font-weight:700;color:#34D399;letter-spacing:-0.02em;line-height:1;">286</div><div style="font-size:10px;color:#7B8196;">kg/日</div></div><div style="font-size:9px;color:#4E5468;margin-top:2px;">较上周</div></div>
+    <div class="card kpi-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="display:flex;gap:8px;align-items:center;"><div class="icon-badge" style="width:28px;height:28px;border-color:#FBBF2455;background:rgba(251,191,36,0.12);"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="rgba(251,191,36,0.25)"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;">绿能替代率</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;">↑ 3.1%</span></div><div style="margin-top:6px;"><div class="num" style="font-size:22px;font-weight:700;color:#FBBF24;letter-spacing:-0.02em;line-height:1;">73.5</div><div style="font-size:10px;color:#7B8196;">%</div></div><div style="font-size:9px;color:#4E5468;margin-top:2px;">较上周</div></div>
+    <div class="card kpi-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="display:flex;gap:8px;align-items:center;"><div class="icon-badge" style="width:28px;height:28px;border-color:#A78BFA55;background:rgba(167,139,250,0.12);"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="10" width="3" height="8" fill="rgba(167,139,250,0.2)"/><rect x="10.5" y="6" width="3" height="12" fill="rgba(167,139,250,0.2)"/><rect x="16" y="12" width="3" height="6" fill="rgba(167,139,250,0.2)"/><path d="M3 20h18"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;">人工成本降低</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;">↑ 8.6%</span></div><div style="margin-top:6px;"><div class="num" style="font-size:22px;font-weight:700;color:#A78BFA;letter-spacing:-0.02em;line-height:1;">42</div><div style="font-size:10px;color:#7B8196;">%</div></div><div style="font-size:9px;color:#4E5468;margin-top:2px;">较上周</div></div>
+    <div class="card kpi-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="display:flex;gap:8px;align-items:center;"><div class="icon-badge" style="width:28px;height:28px;border-color:#60A5FA55;background:rgba(96,165,250,0.12);"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z" fill="rgba(96,165,250,0.15)"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;">资源循环利用</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;">↑ 2.3%</span></div><div style="margin-top:6px;"><div class="num" style="font-size:22px;font-weight:700;color:#60A5FA;letter-spacing:-0.02em;line-height:1;">92</div><div style="font-size:10px;color:#7B8196;">%</div></div><div style="font-size:9px;color:#4E5468;margin-top:2px;">较上周</div></div>
+  </div>
+
+</div>
+</div><!-- /screen -->
+</div><!-- /viewport -->
+
+<script>
+function scale(){const vw=window.innerWidth,vh=window.innerHeight-40;const s=Math.min(vw/1920,vh/1080);document.getElementById('screen').style.transform=`scale(${s})`;document.getElementById('viewport').style.width=vw+'px';}
+scale();window.addEventListener('resize',scale);
+function tick(){const now=new Date();const days=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];const pad=n=>String(n).padStart(2,'0');document.getElementById('clock').textContent=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;document.getElementById('weekday').textContent=days[now.getDay()];}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>

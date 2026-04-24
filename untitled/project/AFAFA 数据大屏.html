@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>AFAFA 植物工厂数据管理中心 · 驾驶舱</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"/>
+<style>
+  html, body { margin:0; padding:0; background:#050812; }
+  body { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="page1-overview.jsx"></script>
+<script type="text/babel" src="page2-beijing.jsx"></script>
+<script type="text/babel" src="page3-qingdao.jsx"></script>
+<script type="text/babel" src="page4-heilongjiang.jsx"></script>
+<script type="text/babel" src="page5-shaanxi.jsx"></script>
+
+<script type="text/babel">
+const App = () => (
+  <DesignCanvas title="AFAFA · 植物工厂数据管理中心" subtitle="5 屏 · 1920 × 1080 · Modern Dark Mode / Bento / Glassmorphism">
+    <DCSection id="screens" title="数据可视化大屏 · 5 Screens">
+      <DCArtboard id="p1" label="01 · 基地集群总览" width={1920} height={1080}><Page1/></DCArtboard>
+      <DCArtboard id="p2" label="02 · 北京大学东莞光电研究院光生物应用研发中心" width={1920} height={1080}><Page2/></DCArtboard>
+      <DCArtboard id="p3" label="03 · 青岛富士康植物工厂数据中心" width={1920} height={1080}><Page3/></DCArtboard>
+      <DCArtboard id="p4" label="04 · 黑龙江北大荒育秧中心" width={1920} height={1080}><Page4/></DCArtboard>
+      <DCArtboard id="p5" label="05 · 陕西崔家湾红薯实验中心" width={1920} height={1080}><Page5/></DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

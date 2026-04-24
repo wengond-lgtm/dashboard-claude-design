@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>AFAFA · 01 基地集群总览</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-0:#0A0E17;--bg-1:#0F1320;--bg-2:#141824;--bg-3:#1B2030;
+  --stroke:rgba(255,255,255,0.06);--stroke-strong:rgba(255,255,255,0.1);
+  --text-0:#F2F4FA;--text-1:#C9CEDC;--text-2:#7B8196;--text-3:#4E5468;
+  --mint:#5EEAD4;--mint-soft:rgba(94,234,212,0.14);
+  --lavender:#A78BFA;--lavender-soft:rgba(167,139,250,0.14);
+  --sky:#60A5FA;--sky-soft:rgba(96,165,250,0.14);
+  --warn:#FBBF24;--alert:#F87171;--ok:#34D399;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;background:#050812;overflow:hidden;}
+body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature-settings:"tnum" 1,"ss01" 1;}
+
+.screen{
+  width:1920px;height:1080px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(900px 600px at 15% -10%,rgba(96,165,250,0.10),transparent 60%),
+    radial-gradient(1100px 700px at 95% 110%,rgba(167,139,250,0.10),transparent 60%),
+    radial-gradient(700px 500px at 50% 50%,rgba(94,234,212,0.04),transparent 70%),
+    linear-gradient(180deg,#0A0E17 0%,#0B101C 100%);
+  color:var(--text-0);overflow:hidden;position:relative;letter-spacing:0.01em;
+  transform-origin:top left;
+}
+.screen::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;
+}
+.screen::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(1800px 900px at 50% 60%,transparent 0%,rgba(0,0,0,0.35) 100%);
+  pointer-events:none;
+}
+
+/* NAV */
+.nav-strip{
+  position:fixed;top:0;left:0;right:0;height:40px;
+  background:rgba(5,8,18,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;gap:4px;padding:0 16px;z-index:999;
+}
+.nav-strip a{
+  font-size:11px;color:#7B8196;letter-spacing:0.12em;text-decoration:none;
+  padding:5px 12px;border-radius:6px;transition:all .15s;white-space:nowrap;
+}
+.nav-strip a:hover{background:rgba(255,255,255,0.06);color:#C9CEDC;}
+.nav-strip a.active{background:rgba(94,234,212,0.12);color:#5EEAD4;border:1px solid rgba(94,234,212,0.3);}
+.nav-strip .sep{width:1px;height:16px;background:rgba(255,255,255,0.08);margin:0 4px;}
+
+/* VIEWPORT */
+.viewport{position:fixed;inset:0;top:40px;overflow:hidden;display:flex;align-items:flex-start;justify-content:flex-start;}
+
+/* HEADER */
+.header{
+  position:relative;z-index:2;height:80px;padding:0 32px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  border-bottom:1px solid var(--stroke);
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-mark{
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,#5EEAD4 0%,#60A5FA 50%,#A78BFA 100%);
+  display:grid;place-items:center;box-shadow:0 0 24px rgba(94,234,212,0.25);position:relative;
+}
+.logo-mark::after{content:"";position:absolute;inset:2px;border-radius:8px;background:#0A0E17;}
+.logo-mark svg{position:relative;z-index:1;}
+.logo-text{font-size:20px;font-weight:700;letter-spacing:0.14em;}
+.logo-sub{font-size:11px;color:var(--text-2);letter-spacing:0.2em;margin-top:2px;}
+.header-title{font-size:26px;font-weight:600;letter-spacing:0.22em;text-align:center;display:flex;align-items:center;gap:18px;}
+.header-title .bar{width:28px;height:2px;background:linear-gradient(90deg,transparent,var(--mint));}
+.header-title .bar.r{background:linear-gradient(90deg,var(--mint),transparent);}
+.header-right{display:flex;align-items:center;justify-content:flex-end;gap:18px;color:var(--text-1);font-size:14px;}
+.time-block{display:flex;flex-direction:column;align-items:flex-end;line-height:1.2;}
+.time-block .t{font-size:20px;font-weight:600;color:var(--text-0);font-variant-numeric:tabular-nums;}
+.time-block .d{font-size:12px;color:var(--text-2);letter-spacing:0.14em;margin-top:2px;}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid var(--stroke-strong);font-size:11px;color:var(--text-1);letter-spacing:0.06em;}
+.chip.mint{color:#A6F3E4;background:var(--mint-soft);border-color:rgba(94,234,212,0.3);}
+.chip.warn{color:#FCD34D;background:rgba(251,191,36,0.12);border-color:rgba(251,191,36,0.3);}
+.chip.alert{color:#FCA5A5;background:rgba(248,113,113,0.12);border-color:rgba(248,113,113,0.3);}
+.dot{width:6px;height:6px;border-radius:50%;}
+
+/* CARD */
+.card{
+  position:relative;
+  background:linear-gradient(180deg,rgba(255,255,255,0.04) 0%,rgba(255,255,255,0.015) 100%);
+  border:1px solid var(--stroke);border-radius:16px;
+  backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04),0 12px 32px rgba(0,0,0,0.35);
+}
+.icon-badge{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--stroke-strong);}
+.mono{font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+
+/* ENTRY CARD */
+.entry-card{
+  position:relative;height:100%;border-radius:20px;
+  border:1px solid var(--stroke-strong);
+  background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01) 40%),linear-gradient(135deg,rgba(94,234,212,0.04),rgba(167,139,250,0.04));
+  overflow:hidden;backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.06),0 24px 60px rgba(0,0,0,0.4);
+  display:grid;grid-template-rows:auto auto 1fr auto;gap:16px;
+  padding:26px;
+}
+.entry-card .card-photo{
+  position:absolute;top:0;right:0;width:52%;height:100%;
+  object-fit:cover;object-position:center;
+  mask-image:linear-gradient(to left, rgba(0,0,0,0.38) 0%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to left, rgba(0,0,0,0.38) 0%, transparent 100%);
+  pointer-events:none;
+}
+.tag-accent{position:absolute;inset:0;border-radius:20px;opacity:0.10;pointer-events:none;}
+
+/* SPARK */
+.spark-svg{height:36px;opacity:0.7;}
+</style>
+</head>
+<body>
+
+<nav class="nav-strip">
+  <a href="page1-overview.html" class="active">01 · 总览</a>
+  <span class="sep"></span>
+  <a href="page2-beijing.html">02 · 北京</a>
+  <span class="sep"></span>
+  <a href="page3-qingdao.html">03 · 青岛</a>
+  <span class="sep"></span>
+  <a href="page4-heilongjiang.html">04 · 黑龙江</a>
+  <span class="sep"></span>
+  <a href="page5-shaanxi.html">05 · 陕西</a>
+</nav>
+
+<div class="viewport" id="viewport">
+<div class="screen" id="screen">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <img src="AFAFA_logo.svg" alt="AFAFA" style="height:44px;width:auto;display:block;">
+  </div>
+  <div class="header-title">
+    <span class="bar"></span> 植物工厂数据管理中心 <span class="bar r"></span>
+  </div>
+  <div class="header-right">
+    <div style="display:flex;gap:10px;">
+      <span class="chip mint"><span class="dot" style="background:#5EEAD4;box-shadow:0 0 8px #5EEAD4;"></span> 系统在线</span>
+      <span class="chip"><span class="dot" style="background:#A78BFA;"></span> 数据同步中</span>
+    </div>
+    <div class="time-block">
+      <div class="t" id="clock">2026-04-23 14:28:46</div>
+      <div class="d" id="weekday">星期四</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div style="padding:24px 40px 0;position:relative;z-index:2;">
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;">
+
+    <div class="card" style="padding:18px 22px;display:flex;align-items:center;gap:14px;">
+      <div class="icon-badge" style="width:44px;height:44px;border-color:#5EEAD455;background:rgba(94,234,212,0.12);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#7B8196;letter-spacing:0.14em;">接入基地</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:4px;">
+          <span class="num" style="font-size:30px;font-weight:700;color:#5EEAD4;letter-spacing:-0.02em;">04</span>
+          <span style="font-size:12px;color:#7B8196;">个</span>
+        </div>
+      </div>
+      <svg class="spark-svg" viewBox="0 0 70 36" style="width:70px;"><path d="M0 28 L10 20 L20 24 L30 10 L40 16 L50 8 L60 14 L70 6" fill="none" stroke="#5EEAD4" stroke-width="1.5" style="filter:drop-shadow(0 0 4px #5EEAD4aa)"/></svg>
+    </div>
+
+    <div class="card" style="padding:18px 22px;display:flex;align-items:center;gap:14px;">
+      <div class="icon-badge" style="width:44px;height:44px;border-color:#A78BFA55;background:rgba(167,139,250,0.12);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M3 10h3M3 14h3M18 10h3M18 14h3M10 3v3M14 3v3M10 18v3M14 18v3"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#7B8196;letter-spacing:0.14em;">在线设备</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:4px;">
+          <span class="num" style="font-size:30px;font-weight:700;color:#A78BFA;letter-spacing:-0.02em;">248</span>
+          <span style="font-size:12px;color:#7B8196;">台</span>
+        </div>
+      </div>
+      <svg class="spark-svg" viewBox="0 0 70 36" style="width:70px;"><path d="M0 20 L10 14 L20 18 L30 8 L40 14 L50 6 L60 12 L70 4" fill="none" stroke="#A78BFA" stroke-width="1.5" style="filter:drop-shadow(0 0 4px #A78BFAaa)"/></svg>
+    </div>
+
+    <div class="card" style="padding:18px 22px;display:flex;align-items:center;gap:14px;">
+      <div class="icon-badge" style="width:44px;height:44px;border-color:#60A5FA55;background:rgba(96,165,250,0.12);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" fill="rgba(96,165,250,0.15)"/><path d="M5 19L14 10"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#7B8196;letter-spacing:0.14em;">累计产出量</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:4px;">
+          <span class="num" style="font-size:30px;font-weight:700;color:#60A5FA;letter-spacing:-0.02em;">12,486</span>
+          <span style="font-size:12px;color:#7B8196;">kg</span>
+        </div>
+      </div>
+      <svg class="spark-svg" viewBox="0 0 70 36" style="width:70px;"><path d="M0 30 L10 22 L20 26 L30 14 L40 18 L50 8 L60 12 L70 4" fill="none" stroke="#60A5FA" stroke-width="1.5" style="filter:drop-shadow(0 0 4px #60A5FAaa)"/></svg>
+    </div>
+
+    <div class="card" style="padding:18px 22px;display:flex;align-items:center;gap:14px;">
+      <div class="icon-badge" style="width:44px;height:44px;border-color:#5EEAD455;background:rgba(94,234,212,0.12);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#7B8196;letter-spacing:0.14em;">平均合格率</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:4px;">
+          <span class="num" style="font-size:30px;font-weight:700;color:#5EEAD4;letter-spacing:-0.02em;">98.4</span>
+          <span style="font-size:12px;color:#7B8196;">%</span>
+        </div>
+      </div>
+      <svg class="spark-svg" viewBox="0 0 70 36" style="width:70px;"><path d="M0 26 L10 20 L20 22 L30 12 L40 16 L50 10 L60 14 L70 8" fill="none" stroke="#5EEAD4" stroke-width="1.5" style="filter:drop-shadow(0 0 4px #5EEAD4aa)"/></svg>
+    </div>
+
+    <div class="card" style="padding:18px 22px;display:flex;align-items:center;gap:14px;">
+      <div class="icon-badge" style="width:44px;height:44px;border-color:#34D39955;background:rgba(52,211,153,0.12);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(52,211,153,0.2)"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#7B8196;letter-spacing:0.14em;">绿能替代率</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:4px;">
+          <span class="num" style="font-size:30px;font-weight:700;color:#34D399;letter-spacing:-0.02em;">73.5</span>
+          <span style="font-size:12px;color:#7B8196;">%</span>
+        </div>
+      </div>
+      <svg class="spark-svg" viewBox="0 0 70 36" style="width:70px;"><path d="M0 28 L10 24 L20 18 L30 22 L40 12 L50 16 L60 8 L70 10" fill="none" stroke="#34D399" stroke-width="1.5" style="filter:drop-shadow(0 0 4px #34D399aa)"/></svg>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4 BASE CARDS -->
+<div style="padding:20px 40px 28px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;flex:1;min-height:0;overflow:hidden;box-sizing:border-box;">
+
+  <!-- BASE 01 -->
+  <div class="entry-card">
+    <img class="card-photo" src="北京大学东莞光电研究院.jpg" alt="">
+    <div class="tag-accent" style="background:linear-gradient(180deg,#5EEAD4,transparent 35%);"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;gap:16px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="mono" style="font-size:12px;color:#5EEAD4;letter-spacing:0.28em;">BASE · 01</div>
+          <div style="width:32px;height:1px;background:#5EEAD4;opacity:0.5;"></div>
+        </div>
+        <div style="font-size:24px;font-weight:700;margin-top:10px;letter-spacing:0.02em;line-height:1.2;">北京大学东莞光电研究院</div>
+        <div style="font-size:15px;color:#C9CEDC;margin-top:4px;">光生物应用研发中心</div>
+        <div style="font-size:11px;color:#7B8196;margin-top:10px;letter-spacing:0.16em;">📍 广东 · 东莞</div>
+      </div>
+      <div style="width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,rgba(94,234,212,0.2),transparent);border:1px solid rgba(94,234,212,0.4);display:grid;place-items:center;flex-shrink:0;">
+        <div class="mono" style="font-size:32px;font-weight:800;color:#5EEAD4;letter-spacing:-0.04em;">01</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(94,234,212,0.12);border:1px solid rgba(94,234,212,0.35);color:#5EEAD4;font-size:12px;">垂直种植区</span>
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(94,234,212,0.12);border:1px solid rgba(94,234,212,0.35);color:#5EEAD4;font-size:12px;">集装箱种植区</span>
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(94,234,212,0.12);border:1px solid rgba(94,234,212,0.35);color:#5EEAD4;font-size:12px;">育苗区</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;align-self:end;">
+      <div>
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">库位 (个)</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">312</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">合格率 (%)</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;color:#5EEAD4;letter-spacing:-0.02em;">98.2</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">日耗电 kWh</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">1,245</div>
+      </div>
+    </div>
+    <a href="page2-beijing.html" style="text-decoration:none;display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-radius:12px;background:rgba(94,234,212,0.1);border:1px solid rgba(94,234,212,0.35);cursor:pointer;">
+      <div style="font-size:13px;letter-spacing:0.22em;color:#5EEAD4;font-weight:600;">进入数据中心</div>
+      <div class="mono" style="font-size:11px;letter-spacing:0.18em;color:#5EEAD4;opacity:0.8;">ENTER →</div>
+    </a>
+  </div>
+
+  <!-- BASE 02 -->
+  <div class="entry-card">
+    <img class="card-photo" src="青岛富士康植物工厂.jpg" alt="">
+    <div class="tag-accent" style="background:linear-gradient(180deg,#A78BFA,transparent 35%);"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;gap:16px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="mono" style="font-size:12px;color:#A78BFA;letter-spacing:0.28em;">BASE · 02</div>
+          <div style="width:32px;height:1px;background:#A78BFA;opacity:0.5;"></div>
+        </div>
+        <div style="font-size:24px;font-weight:700;margin-top:10px;letter-spacing:0.02em;line-height:1.2;">青岛富士康</div>
+        <div style="font-size:15px;color:#C9CEDC;margin-top:4px;">植物工厂数据中心</div>
+        <div style="font-size:11px;color:#7B8196;margin-top:10px;letter-spacing:0.16em;">📍 山东 · 青岛</div>
+      </div>
+      <div style="width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,rgba(167,139,250,0.2),transparent);border:1px solid rgba(167,139,250,0.4);display:grid;place-items:center;flex-shrink:0;">
+        <div class="mono" style="font-size:32px;font-weight:800;color:#A78BFA;letter-spacing:-0.04em;">02</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.35);color:#A78BFA;font-size:12px;">垂直种植区</span>
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.35);color:#A78BFA;font-size:12px;">育苗区</span>
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.35);color:#A78BFA;font-size:12px;">催芽区</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;align-self:end;">
+      <div>
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">库位 (个)</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">6,720</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">合格率 (%)</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;color:#A78BFA;letter-spacing:-0.02em;">97.6</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">日耗电 kWh</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">8,340</div>
+      </div>
+    </div>
+    <a href="page3-qingdao.html" style="text-decoration:none;display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-radius:12px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.35);cursor:pointer;">
+      <div style="font-size:13px;letter-spacing:0.22em;color:#A78BFA;font-weight:600;">进入数据中心</div>
+      <div class="mono" style="font-size:11px;letter-spacing:0.18em;color:#A78BFA;opacity:0.8;">ENTER →</div>
+    </a>
+  </div>
+
+  <!-- BASE 03 -->
+  <div class="entry-card">
+    <img class="card-photo" src="黑龙江北大荒育秧中心.jpg" alt="">
+    <div class="tag-accent" style="background:linear-gradient(180deg,#60A5FA,transparent 35%);"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;gap:16px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="mono" style="font-size:12px;color:#60A5FA;letter-spacing:0.28em;">BASE · 03</div>
+          <div style="width:32px;height:1px;background:#60A5FA;opacity:0.5;"></div>
+        </div>
+        <div style="font-size:24px;font-weight:700;margin-top:10px;letter-spacing:0.02em;line-height:1.2;">黑龙江北大荒</div>
+        <div style="font-size:15px;color:#C9CEDC;margin-top:4px;">育秧中心</div>
+        <div style="font-size:11px;color:#7B8196;margin-top:10px;letter-spacing:0.16em;">📍 黑龙江 · 哈尔滨</div>
+      </div>
+      <div style="width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,rgba(96,165,250,0.2),transparent);border:1px solid rgba(96,165,250,0.4);display:grid;place-items:center;flex-shrink:0;">
+        <div class="mono" style="font-size:32px;font-weight:800;color:#60A5FA;letter-spacing:-0.04em;">03</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.35);color:#60A5FA;font-size:12px;">种植区</span>
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.35);color:#60A5FA;font-size:12px;">育苗区</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;align-self:end;">
+      <div>
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">计划盘数</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">250,000</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">通过率 (%)</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;color:#60A5FA;letter-spacing:-0.02em;">99.1</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">日耗电 kWh</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">2,180</div>
+      </div>
+    </div>
+    <a href="page4-heilongjiang.html" style="text-decoration:none;display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-radius:12px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.35);cursor:pointer;">
+      <div style="font-size:13px;letter-spacing:0.22em;color:#60A5FA;font-weight:600;">进入数据中心</div>
+      <div class="mono" style="font-size:11px;letter-spacing:0.18em;color:#60A5FA;opacity:0.8;">ENTER →</div>
+    </a>
+  </div>
+
+  <!-- BASE 04 -->
+  <div class="entry-card">
+    <img class="card-photo" src="陕西崔家湾红薯实验中心.jpg" alt="">
+    <div class="tag-accent" style="background:linear-gradient(180deg,#FBBF24,transparent 35%);"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;gap:16px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="mono" style="font-size:12px;color:#FBBF24;letter-spacing:0.28em;">BASE · 04</div>
+          <div style="width:32px;height:1px;background:#FBBF24;opacity:0.5;"></div>
+        </div>
+        <div style="font-size:24px;font-weight:700;margin-top:10px;letter-spacing:0.02em;line-height:1.2;">陕西崔家湾</div>
+        <div style="font-size:15px;color:#C9CEDC;margin-top:4px;">红薯实验中心</div>
+        <div style="font-size:11px;color:#7B8196;margin-top:10px;letter-spacing:0.16em;">📍 陕西 · 西安</div>
+      </div>
+      <div style="width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,rgba(251,191,36,0.2),transparent);border:1px solid rgba(251,191,36,0.4);display:grid;place-items:center;flex-shrink:0;">
+        <div class="mono" style="font-size:32px;font-weight:800;color:#FBBF24;letter-spacing:-0.04em;">04</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;font-size:12px;">种植区</span>
+      <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;font-size:12px;">育苗区</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;align-self:end;">
+      <div>
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">计划盘数</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">250,000</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">通过率 (%)</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;color:#FBBF24;letter-spacing:-0.02em;">98.7</div>
+      </div>
+      <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:18px;">
+        <div style="font-size:11px;color:#7B8196;letter-spacing:0.16em;">日耗电 kWh</div>
+        <div class="num" style="font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-0.02em;">1,560</div>
+      </div>
+    </div>
+    <a href="page5-shaanxi.html" style="text-decoration:none;display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-radius:12px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.35);cursor:pointer;">
+      <div style="font-size:13px;letter-spacing:0.22em;color:#FBBF24;font-weight:600;">进入数据中心</div>
+      <div class="mono" style="font-size:11px;letter-spacing:0.18em;color:#FBBF24;opacity:0.8;">ENTER →</div>
+    </a>
+  </div>
+
+</div>
+</div><!-- /screen -->
+</div><!-- /viewport -->
+
+<script>
+// Auto-scale screen to fit viewport
+function scale() {
+  const vw = window.innerWidth, vh = window.innerHeight - 40;
+  const s = Math.min(vw / 1920, vh / 1080);
+  document.getElementById('screen').style.transform = `scale(${s})`;
+  document.getElementById('viewport').style.width = vw + 'px';
+}
+scale();
+window.addEventListener('resize', scale);
+
+// Live clock
+function tick() {
+  const now = new Date();
+  const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  const pad = n => String(n).padStart(2,'0');
+  document.getElementById('clock').textContent =
+    `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  document.getElementById('weekday').textContent = days[now.getDay()];
+}
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
