@@ -245,64 +245,66 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
       <span class="chip lav" style="font-size:9px;">今日实时</span>
     </div>
     <div style="padding:12px;display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;overflow:hidden;">
-      <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(94,234,212,0.08),transparent 70%);border:1px solid rgba(94,234,212,0.25);display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;border:1px solid rgba(94,234,212,0.35);background:rgba(94,234,212,0.12);display:grid;place-items:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="rgba(94,234,212,0.25)"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div>
-          <div style="flex:1;min-width:0;"><div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">补光电能</div><div class="num" style="font-size:24px;font-weight:700;color:#5EEAD4;margin-top:2px;line-height:1;">1,248<span style="font-size:11px;color:#7B8196;margin-left:4px;">kWh</span></div></div>
-          <span style="font-size:10px;color:#34D399;flex-shrink:0;">↓ 2.1%</span>
+      <!-- 2×2 大指标网格 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(94,234,212,0.1),rgba(96,165,250,0.05));border:1px solid rgba(94,234,212,0.25);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">补光电能</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#5EEAD4;line-height:1;">1,248<span style="font-size:10px;color:#7B8196;margin-left:3px;">kWh</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;"><div class="progress" style="flex:1;height:4px;margin-right:8px;"><div class="progress-fill" style="width:89%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div><span style="font-size:9px;color:#34D399;white-space:nowrap;">↓ 2.1%</span></div>
+          <div style="font-size:8px;color:#4E5468;margin-top:3px;">目标 1,400 kWh</div>
         </div>
-        <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;">
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:#4E5468;"><span>目标用量</span><span class="num" style="color:#7B8196;">1,400 kWh</span></div>
-          <div class="progress" style="height:5px;"><div class="progress-fill" style="width:89%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div>
-          <svg viewBox="0 0 200 28" style="width:100%;height:28px;opacity:0.6;"><path d="M0 22 L28 17 L56 20 L84 11 L112 14 L140 6 L168 10 L200 4" fill="none" stroke="#5EEAD4" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #5EEAD4aa)"/></svg>
+        <div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(167,139,250,0.1),rgba(96,165,250,0.05));border:1px solid rgba(167,139,250,0.25);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">环控电能</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#A78BFA;line-height:1;">532<span style="font-size:10px;color:#7B8196;margin-left:3px;">kWh</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;"><div class="progress" style="flex:1;height:4px;margin-right:8px;"><div class="progress-fill" style="width:88.7%;background:linear-gradient(90deg,#A78BFA,#60A5FA);"></div></div><span style="font-size:9px;color:#34D399;white-space:nowrap;">↑ 0.8%</span></div>
+          <div style="font-size:8px;color:#4E5468;margin-top:3px;">目标 600 kWh</div>
         </div>
-      </div>
-      <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(167,139,250,0.08),transparent 70%);border:1px solid rgba(167,139,250,0.25);display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;border:1px solid rgba(167,139,250,0.35);background:rgba(167,139,250,0.12);display:grid;place-items:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M3 10h3M3 14h3M18 10h3M18 14h3M10 3v3M14 3v3M10 18v3M14 18v3"/></svg></div>
-          <div style="flex:1;min-width:0;"><div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">环控电能</div><div class="num" style="font-size:24px;font-weight:700;color:#A78BFA;margin-top:2px;line-height:1;">532<span style="font-size:11px;color:#7B8196;margin-left:4px;">kWh</span></div></div>
-          <span style="font-size:10px;color:#34D399;flex-shrink:0;">↑ 0.8%</span>
+        <div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(96,165,250,0.1),rgba(167,139,250,0.05));border:1px solid rgba(96,165,250,0.25);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">总耗电量</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#60A5FA;line-height:1;">2,180<span style="font-size:10px;color:#7B8196;margin-left:3px;">kWh</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;"><div class="progress" style="flex:1;height:4px;margin-right:8px;"><div class="progress-fill" style="width:90.8%;background:linear-gradient(90deg,#60A5FA,#A78BFA);"></div></div><span style="font-size:9px;color:#F87171;white-space:nowrap;">↓ 1.4%</span></div>
+          <div style="font-size:8px;color:#4E5468;margin-top:3px;">上限 2,400 kWh</div>
         </div>
-        <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;">
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:#4E5468;"><span>目标用量</span><span class="num" style="color:#7B8196;">600 kWh</span></div>
-          <div class="progress" style="height:5px;"><div class="progress-fill" style="width:88.7%;background:linear-gradient(90deg,#A78BFA,#60A5FA);"></div></div>
-          <svg viewBox="0 0 200 28" style="width:100%;height:28px;opacity:0.6;"><path d="M0 16 L28 12 L56 16 L84 8 L112 12 L140 6 L168 10 L200 4" fill="none" stroke="#A78BFA" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #A78BFAaa)"/></svg>
-        </div>
-      </div>
-      <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(96,165,250,0.08),transparent 70%);border:1px solid rgba(96,165,250,0.25);display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;border:1px solid rgba(96,165,250,0.35);background:rgba(96,165,250,0.12);display:grid;place-items:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(96,165,250,0.2)"/></svg></div>
-          <div style="flex:1;min-width:0;"><div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">总耗电量</div><div class="num" style="font-size:24px;font-weight:700;color:#60A5FA;margin-top:2px;line-height:1;">2,180<span style="font-size:11px;color:#7B8196;margin-left:4px;">kWh</span></div></div>
-          <span style="font-size:10px;color:#F87171;flex-shrink:0;">↓ 1.4%</span>
-        </div>
-        <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;">
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:#4E5468;"><span>日计划上限</span><span class="num" style="color:#7B8196;">2,400 kWh</span></div>
-          <div class="progress" style="height:5px;"><div class="progress-fill" style="width:90.8%;background:linear-gradient(90deg,#60A5FA,#A78BFA);"></div></div>
-          <svg viewBox="0 0 200 28" style="width:100%;height:28px;opacity:0.6;"><path d="M0 24 L28 18 L56 22 L84 12 L112 16 L140 8 L168 12 L200 4" fill="none" stroke="#60A5FA" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #60A5FAaa)"/></svg>
+        <div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(52,211,153,0.1),rgba(94,234,212,0.05));border:1px solid rgba(52,211,153,0.25);">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:4px;">营养液/水耗</div>
+          <div class="num" style="font-size:22px;font-weight:700;color:#34D399;line-height:1;">24.6<span style="font-size:10px;color:#7B8196;margin-left:3px;">m³</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;"><div class="progress" style="flex:1;height:4px;margin-right:8px;"><div class="progress-fill" style="width:96%;background:linear-gradient(90deg,#34D399,#5EEAD4);"></div></div><span style="font-size:9px;color:#5EEAD4;white-space:nowrap;">节水 38%</span></div>
+          <div style="font-size:8px;color:#4E5468;margin-top:3px;">节水率目标 40%</div>
         </div>
       </div>
-      <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(52,211,153,0.08),transparent 70%);border:1px solid rgba(52,211,153,0.25);display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;border:1px solid rgba(52,211,153,0.35);background:rgba(52,211,153,0.12);display:grid;place-items:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z" fill="rgba(52,211,153,0.15)"/></svg></div>
-          <div style="flex:1;min-width:0;"><div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">营养液/水耗</div><div class="num" style="font-size:24px;font-weight:700;color:#34D399;margin-top:2px;line-height:1;">24.6<span style="font-size:11px;color:#7B8196;margin-left:4px;">m³</span></div></div>
-          <span style="font-size:10px;color:#5EEAD4;flex-shrink:0;">节水 38.4%</span>
+      <!-- 单位产量能耗 — 全宽横幅 -->
+      <div style="padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(251,191,36,0.1),rgba(249,115,22,0.05));border:1px solid rgba(251,191,36,0.25);display:flex;align-items:center;gap:14px;">
+        <div style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(251,191,36,0.35);background:rgba(251,191,36,0.12);display:grid;place-items:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="10" width="3" height="8" fill="rgba(251,191,36,0.2)"/><rect x="10.5" y="6" width="3" height="12" fill="rgba(251,191,36,0.2)"/><rect x="16" y="12" width="3" height="6" fill="rgba(251,191,36,0.2)"/><path d="M3 20h18"/></svg></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:9px;color:#7B8196;letter-spacing:0.12em;margin-bottom:2px;">单位产量能耗</div>
+          <div style="display:flex;align-items:baseline;gap:10px;"><div class="num" style="font-size:26px;font-weight:700;color:#FBBF24;line-height:1;">0.72<span style="font-size:11px;color:#7B8196;margin-left:4px;">kg/kWh</span></div><span style="font-size:10px;color:#34D399;">↑ 5.6%</span></div>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;"><div class="progress" style="flex:1;height:5px;"><div class="progress-fill" style="width:90%;background:linear-gradient(90deg,#FBBF24,#F97316);box-shadow:0 0 8px rgba(251,191,36,0.4);"></div></div><span style="font-size:9px;color:#4E5468;white-space:nowrap;">目标 0.80 kg/kWh</span></div>
         </div>
-        <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;">
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:#4E5468;"><span>节水率目标</span><span class="num" style="color:#7B8196;">40%</span></div>
-          <div class="progress" style="height:5px;"><div class="progress-fill" style="width:96%;background:linear-gradient(90deg,#34D399,#5EEAD4);"></div></div>
-          <svg viewBox="0 0 200 28" style="width:100%;height:28px;opacity:0.6;"><path d="M0 18 L28 14 L56 17 L84 9 L112 12 L140 5 L168 8 L200 5" fill="none" stroke="#34D399" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #34D399aa)"/></svg>
-        </div>
+        <svg viewBox="0 0 120 36" style="width:120px;height:36px;flex-shrink:0;opacity:0.7;"><path d="M0 30 L20 24 L40 20 L60 25 L80 15 L100 18 L120 10" fill="none" stroke="#FBBF24" stroke-width="1.5" style="filter:drop-shadow(0 0 3px rgba(251,191,36,0.7))"/></svg>
       </div>
-      <div style="padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(251,191,36,0.08),transparent 70%);border:1px solid rgba(251,191,36,0.25);display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;border:1px solid rgba(251,191,36,0.35);background:rgba(251,191,36,0.12);display:grid;place-items:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="10" width="3" height="8" fill="rgba(251,191,36,0.2)"/><rect x="10.5" y="6" width="3" height="12" fill="rgba(251,191,36,0.2)"/><rect x="16" y="12" width="3" height="6" fill="rgba(251,191,36,0.2)"/><path d="M3 20h18"/></svg></div>
-          <div style="flex:1;min-width:0;"><div style="font-size:10px;color:#7B8196;letter-spacing:0.14em;">单位产量能耗</div><div class="num" style="font-size:24px;font-weight:700;color:#FBBF24;margin-top:2px;line-height:1;">0.72<span style="font-size:11px;color:#7B8196;margin-left:4px;">kg/kWh</span></div></div>
-          <span style="font-size:10px;color:#34D399;flex-shrink:0;">↑ 5.6%</span>
+      <!-- 能耗趋势 + 综合效益 — 下部横向双栏 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0;">
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;min-height:0;">
+          <div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;margin-bottom:8px;">能耗趋势</div>
+          <svg viewBox="0 0 180 70" style="width:100%;flex:1;min-height:0;opacity:0.85;" preserveAspectRatio="none">
+            <defs><linearGradient id="gr4a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5EEAD4" stop-opacity="0.3"/><stop offset="100%" stop-color="#5EEAD4" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0 60 L30 50 L60 55 L90 35 L120 42 L150 22 L180 28" fill="none" stroke="#5EEAD4" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #5EEAD4aa)"/>
+            <path d="M0 60 L30 50 L60 55 L90 35 L120 42 L150 22 L180 28 L180 70 L0 70Z" fill="url(#gr4a)"/>
+            <path d="M0 65 L30 58 L60 62 L90 48 L120 54 L150 38 L180 44" fill="none" stroke="#A78BFA" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.5"/>
+          </svg>
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <div style="display:flex;align-items:center;gap:4px;font-size:8px;color:#7B8196;"><div style="width:12px;height:2px;background:#5EEAD4;border-radius:1px;"></div>实际</div>
+            <div style="display:flex;align-items:center;gap:4px;font-size:8px;color:#7B8196;"><div style="width:12px;height:1px;background:#A78BFA;border-radius:1px;"></div>计划</div>
+          </div>
         </div>
-        <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;">
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:#4E5468;"><span>效率目标</span><span class="num" style="color:#7B8196;">0.80 kg/kWh</span></div>
-          <div class="progress" style="height:5px;"><div class="progress-fill" style="width:90%;background:linear-gradient(90deg,#FBBF24,#F97316);"></div></div>
-          <svg viewBox="0 0 200 28" style="width:100%;height:28px;opacity:0.6;"><path d="M0 20 L28 17 L56 14 L84 18 L112 11 L140 14 L168 8 L200 9" fill="none" stroke="#FBBF24" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #FBBF24aa)"/></svg>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;">综合效益</div>
+          <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:8px;background:rgba(94,234,212,0.06);border:1px solid rgba(94,234,212,0.15);"><span style="font-size:10px;color:#C9CEDC;">单位能耗</span><span class="num" style="font-size:13px;font-weight:600;color:#5EEAD4;">0.72 <span style="font-size:9px;color:#7B8196;">kWh/kg</span></span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:8px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);"><span style="font-size:10px;color:#C9CEDC;">绿能替代率</span><span class="num" style="font-size:13px;font-weight:600;color:#34D399;">71.2<span style="font-size:9px;color:#7B8196;">%</span></span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:8px;background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.15);"><span style="font-size:10px;color:#C9CEDC;">人工成本降低</span><span class="num" style="font-size:13px;font-weight:600;color:#A78BFA;">42<span style="font-size:9px;color:#7B8196;">%</span></span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:8px;background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.15);"><span style="font-size:10px;color:#C9CEDC;">资源循环率</span><span class="num" style="font-size:13px;font-weight:600;color:#60A5FA;">88<span style="font-size:9px;color:#7B8196;">%</span></span></div>
+          </div>
         </div>
       </div>
     </div>
