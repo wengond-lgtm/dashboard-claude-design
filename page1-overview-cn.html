@@ -55,7 +55,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
 .nav-strip .sep{width:1px;height:16px;background:rgba(255,255,255,0.08);margin:0 4px;}
 
 /* VIEWPORT */
-.viewport{position:fixed;inset:0;top:40px;overflow:hidden;display:flex;align-items:flex-start;justify-content:flex-start;}
+.viewport{position:fixed;inset:0;top:40px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;}
 
 /* HEADER */
 .header{
@@ -421,7 +421,7 @@ function scale() {
   const vw = window.innerWidth, vh = window.innerHeight - 40;
   const s = Math.min(vw / 1920, vh / 1080);
   document.getElementById('screen').style.transform = `scale(${s})`;
-  document.getElementById('viewport').style.width = vw + 'px';
+  document.getElementById('viewport').style.width = (1920 * s) + 'px';
 }
 scale();
 window.addEventListener('resize', scale);

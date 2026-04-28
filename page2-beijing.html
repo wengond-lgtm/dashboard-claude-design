@@ -19,7 +19,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
 .nav-strip a:hover{background:rgba(255,255,255,0.06);color:#C9CEDC;}
 .nav-strip a.active{background:rgba(94,234,212,0.12);color:#5EEAD4;border:1px solid rgba(94,234,212,0.3);}
 .nav-strip .sep{width:1px;height:16px;background:rgba(255,255,255,0.08);margin:0 4px;}
-.viewport{position:fixed;inset:0;top:40px;overflow:hidden;}
+.viewport{position:fixed;inset:0;top:40px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;}
 
 .screen{
   width:1920px;height:1080px;display:flex;flex-direction:column;
@@ -408,7 +408,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
 </div><!-- /viewport -->
 
 <script>
-function scale(){const vw=window.innerWidth,vh=window.innerHeight-40;const s=Math.min(vw/1920,vh/1080);document.getElementById('screen').style.transform=`scale(${s})`;document.getElementById('viewport').style.width=vw+'px';}
+function scale(){const vw=window.innerWidth,vh=window.innerHeight-40;const s=Math.min(vw/1920,vh/1080);document.getElementById('screen').style.transform=`scale(${s})`;document.getElementById('viewport').style.width=(1920*s)+'px';}
 scale();window.addEventListener('resize',scale);
 function tick(){const now=new Date();const days=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];const pad=n=>String(n).padStart(2,'0');document.getElementById('clock').textContent=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;document.getElementById('weekday').textContent=days[now.getDay()];}
 tick();setInterval(tick,1000);
