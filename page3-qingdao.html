@@ -88,12 +88,11 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
       <div style="font-size:19px;font-weight:600;color:#F2F4FA;font-variant-numeric:tabular-nums;" id="clock">2026-04-23 14:28:46</div>
       <div style="font-size:11px;color:#7B8196;letter-spacing:0.14em;margin-top:2px;" id="weekday">星期四</div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--stroke-strong);background:rgba(255,255,255,0.03);font-size:12px;color:#C9CEDC;"><span style="color:#7B8196;">基地</span><span>切换 ▾</span></div>
   </div>
 </div>
 
 <!-- MAIN GRID: 3 cols, 2 rows -->
-<div style="padding:14px 18px 12px;display:grid;grid-template-columns:1.1fr 1.25fr 1.3fr;grid-template-rows:1fr auto;gap:12px;flex:1;min-height:0;overflow:hidden;box-sizing:border-box;position:relative;z-index:1;">
+<div style="padding:14px 18px 12px;display:grid;grid-template-columns:1.1fr 1.25fr 1.3fr;grid-template-rows:1fr 1fr auto;gap:12px;flex:1;min-height:0;overflow:hidden;box-sizing:border-box;position:relative;z-index:1;">
 
   <!-- LEFT: Production & Order Management -->
   <div class="card" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
@@ -211,11 +210,12 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
     </div>
 
     <!-- Equipment table -->
-    <div class="card" style="flex:1;">
+    <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
       <div class="card-head">
         <div class="card-title"><span class="dot"></span> Equipment Efficiency <span class="en">EQUIPMENT EFFICIENCY</span></div>
         <span class="chip lav" style="font-size:9px;">垂直种植区 ⟳</span>
       </div>
+      <div style="flex:1;min-height:0;overflow-y:auto;">
       <table class="tbl">
         <thead><tr><th>设备名称</th><th>运行频次</th><th style="width:26%;">运行效率</th><th>故障时间</th><th>故障时长</th></tr></thead>
         <tbody>
@@ -227,6 +227,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
           <tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="icon-badge"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(94,234,212,0.2)"/></svg></div><span>动力组</span></div></td><td class="num" style="font-size:11px;color:#C9CEDC;">24 h</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:98.4%;background:linear-gradient(90deg,#5EEAD4,#60A5FA);"></div></div><span class="num" style="width:38px;text-align:right;font-size:11px;font-weight:600;color:#5EEAD4;">98.4%</span></div></td><td class="mono" style="color:#7B8196;font-size:10px;">—</td><td><span class="chip mint" style="font-size:9px;">0h</span></td></tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 
