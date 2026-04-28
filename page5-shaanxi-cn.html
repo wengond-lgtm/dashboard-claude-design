@@ -93,7 +93,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
 <div style="padding:14px 18px 12px;display:grid;grid-template-columns:1fr 1.1fr 1.25fr;grid-template-rows:1fr 1fr auto;gap:12px;flex:1;min-height:0;overflow:hidden;box-sizing:border-box;position:relative;z-index:1;">
 
   <!-- LEFT: 订单排产与产量 -->
-  <div class="card" style="display:flex;flex-direction:column;">
+  <div class="card" style="grid-row:1/span 2;display:flex;flex-direction:column;min-height:0;overflow:hidden;">
     <div class="card-head">
       <div class="card-title"><span class="dot"></span> 订单排产与产量 <span class="en">SCHEDULE &amp; YIELD</span></div>
       <span class="chip warn" style="font-size:9px;"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V11"/><path d="M12 11c0-4-3-6-7-6 0 4 3 6 7 6z" fill="rgba(251,191,36,0.2)"/><path d="M12 13c0-3 2.5-5 6-5 0 3-2.5 5-6 5z" fill="rgba(251,191,36,0.2)"/></svg> 模块 01</span>
@@ -201,7 +201,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
   </div>
 
   <!-- MIDDLE: ENV + Camera -->
-  <div style="display:flex;flex-direction:column;gap:14px;">
+  <div style="grid-row:1/span 2;display:flex;flex-direction:column;gap:14px;min-height:0;">
 
     <!-- ENV -->
     <div class="card">
@@ -263,7 +263,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
   </div>
 
   <!-- RIGHT: 经济指标 — warm accent (full height) -->
-  <div class="card" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+  <div class="card" style="grid-row:1/span 2;display:flex;flex-direction:column;min-height:0;overflow:hidden;">
     <div class="card-head">
       <div class="card-title"><span class="dot" style="background:#A78BFA;box-shadow:0 0 8px #A78BFA;"></span> Economic Indicators <span class="en">经济效益</span></div>
       <span class="chip lav" style="font-size:9px;">今日实时</span>
@@ -298,7 +298,7 @@ body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;font-feature
   </div>
 
   <!-- BOTTOM KPI STRIP -->
-  <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;min-width:0;">
+  <div style="grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;min-width:0;align-self:start;">
     <div class="card kpi-card" style="min-width:0;"><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;align-items:center;gap:8px;min-width:0;"><div class="icon-badge" style="width:28px;height:28px;border-color:#5EEAD455;background:rgba(94,234,212,0.12);flex-shrink:0;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5EEAD4" stroke-width="1.6" stroke-linecap="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="rgba(94,234,212,0.2)"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis;">累计产出</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;flex-shrink:0;">↑ 5.2%</span><div><div class="num" style="font-size:22px;font-weight:700;color:#5EEAD4;letter-spacing:-0.02em;line-height:1;">14,280</div><div style="font-size:10px;color:#7B8196;">kg</div></div><div style="font-size:9px;color:#4E5468;">累计</div></div></div>
     <div class="card kpi-card" style="min-width:0;"><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;align-items:center;gap:8px;min-width:0;"><div class="icon-badge" style="width:28px;height:28px;border-color:#34D39955;background:rgba(52,211,153,0.12);flex-shrink:0;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" fill="rgba(52,211,153,0.15)"/><path d="M5 19L14 10"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis;">在架苗数</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;flex-shrink:0;">↑ 12.4%</span><div><div class="num" style="font-size:22px;font-weight:700;color:#34D399;letter-spacing:-0.02em;line-height:1;">238,000</div><div style="font-size:10px;color:#7B8196;">盘</div></div><div style="font-size:9px;color:#4E5468;">在架</div></div></div>
     <div class="card kpi-card" style="min-width:0;"><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;align-items:center;gap:8px;min-width:0;"><div class="icon-badge" style="width:28px;height:28px;border-color:#FBBF2455;background:rgba(251,191,36,0.12);flex-shrink:0;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="rgba(251,191,36,0.25)"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div><div style="font-size:10px;color:#7B8196;letter-spacing:0.12em;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis;">实验品种</div></div><span class="chip mint" style="font-size:8px;padding:1px 5px;flex-shrink:0;">↑ 3.1%</span><div><div class="num" style="font-size:22px;font-weight:700;color:#FBBF24;letter-spacing:-0.02em;line-height:1;">18</div><div style="font-size:10px;color:#7B8196;">种</div></div><div style="font-size:9px;color:#4E5468;">品种</div></div></div>
